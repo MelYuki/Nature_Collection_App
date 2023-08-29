@@ -1,0 +1,1775 @@
+<   
+
+	***********************************************
+	*    Développement d'une application mobile   *
+	***********************************************
+	*              Nature Collection              *
+	***********************************************
+
+
+<!-- CHAPITRE : Sources -->
+
+DEV = Graven -> https://www.youtube.com/watch?v=WlDzTh4WXek
+MQT = Maquette -> https://www.figma.com/file/qaSUvL29sb5Shhvyw42AFW/Challenge-Mobile---NatureEmoi-Collection?node-id=0%3A1
+RES = Ressources -> https://www.mediafire.com/file/fqphpqrdirajob5/NatureEmoi+App+Mobile+-+Ressources.zip/file
+IMG = Images -> https://pixabay.com/
+ICO = Icones	-> https://www.flaticon.com/fr/
+IDE = AndroidStudio -> https://developer.android.com/studio
+D_B = Firebase -> https://firebase.google.com/
+ENV = Kotlin -> https://kotlinlang.org/docs/home.html
+
+
+<!-- CHAPITRE : Au préalable, INSTALLATION d'AndroidStudio -->
+
+IDE
+
+
+<!-- AndroidStudio.CreateNewProject -->
+
+À l'ouverture d'AndroidStudio,
+
+Créer un nouveau projet
+Choisir -> Empty Activity
+
+Name -> Nature Collection
+Package name -> "domain"."pseudo"."nom du projet"
+	exemple: be.toto.naturecollection
+Language -> Kotlin
+Minimum SDK -> "utiliser la version proposée"
+
+Finish
+
+
+<!-- CHAPITRE : Ajout des ressources -->
+
+# Couleurs
+
+Dans l'arboresance de l'IDE,
+Ouvrir le dossier "java",
+Ouvrir le sous-dossier "res",
+Ouvrir le sous-dossier "values",
+Ouvrir le fichier "colors.xml"
+
+À la suite des couleurs déjà présentes,
+Ajouter les couleurs {
+
+	// Nos couleurs
+}
+
+# Contenu textuel
+
+Dans l'arboresance,
+Dans le sous-dossier "values",
+Ouvrir le fichier "strings.xml"
+
+À la suite de la ligne déjà présente,
+Ajouter les textes {
+
+	// Page d'accueil
+    // Page de collection
+    // Plante customisée
+    // Page d'ajout de plantes
+    // Texte spinner
+    // Bouton de confirmation
+    // Fenêtre pop-up de détails
+}
+
+# Icones AndroidStudio
+
+À répéter pour chaque icones de la MQT
+(Tips: plus -> add, trash -> delete) {
+
+	Dans le sous-dossier "res",
+	Click droit sur "drawable",
+	New,
+	Image Asset
+
+	Icon Type -> Action Bar and Tab Icons
+	Name -> ic_"nom de l'icone"
+	Clip Art -> "click", chercher "nom de l'icone", selectionner, OK
+	Padding -> "minimum"
+	Next,
+	Finish
+
+	Le sous-dossier "ic_'nom de l'icone'" a été ajouté dans "drawable"
+}
+
+# Images
+
+Drag and Drop les fichiers RES/.png dans le dossier "drawable",
+Refactor,
+IMG ajoutées au dossier "drawable" (trending1-2-3.png)
+
+# Styles
+
+Click droit sur "java/res",
+New,
+Android Resource Directory
+
+Resource Type -> font,
+OK
+
+Le sous-dossier "font" a été ajouté dans "drawable",
+Drag and Drop le fichier RES/Kanit.ttf dans le dossier "drawable"
+
+Renommer le fichier,
+Click droit sur "font/Kanit.ttf",
+Refactor,
+Rename,
+Kanit -> kanit
+(Sinon ça pose porblème pour la suite)
+
+Double-Click sur le dossier "res/values/themes(2)",
+Le fichier "themes.xml" s'est ouvert
+
+Remplacer le "parent" de <!-- Base application theme. -->,
+Par -> Theme.AppCompat.Light.NoActionBar
+
+À la suite du bloc déjà présent,
+Ajouter les styles {
+
+	// Créer le composant pour le texte par défaut
+    // Créer le composant pour le sous-titre par défaut
+    // Créer le composant pour le texte du titre par défaut
+
+}
+
+
+<!-- CHAPITRE : Création de la page d'accueil -->
+
+Dans le dossier "java/res/layout",
+Ouvrir le fichier "activity_main.xml",
+
+Choisir son mode de vue -> Code / Split / Design,
+Supprimer le <TextView.../> du "Hello World",
+Ajouter {
+	
+    <!-- Création du titre de l'app -->
+}
+
+# Ajout de ressources
+
+Click droit sur le dossier "res/values",
+New,
+Values Resource File
+
+File name -> dimens,
+OK
+
+Le fichier "dimens.xml" a été ajouté dans "values",
+Ajouter les dimensions récurrentes {
+
+    <dimen name="default_margin">20dp</dimen>
+    <dimen name="item_margin">10dp</dimen>
+}
+
+# Suite création
+
+Dans le fichier "activity_main.xml",
+Ajouter {
+
+    <!-- Création du titre de la page -->
+    <!-- Création du container qui affichera le contenu -->
+}
+
+# Nouveau layout
+
+Click droit sur le dossier "res/layout",
+New,
+Layout Resource File
+
+File name -> frangment_home,
+Root element -> LinearLayout,
+OK
+
+Le fichier "frangment_home.xml" a été ajouté dans "layout",
+Ajouter les RES/.png {
+
+    // Ajout des images trending.png
+}
+
+# Création d'une classe
+
+Click droit sur le dossier "be.meldev.naturecollection" (nom de mon package),
+New,
+Package
+
+New Package -> be.meldev.naturecollection.fragments
+Touche "Enter"
+
+Le dossier "fragments" a été ajouté dans le dossier "be.meldev.naturecollection"
+
+Click droit sur le dossier "fragments",
+New,
+Kotlin Class/File
+
+New Kotlin Class/File -> HomeFragment
+Touche "Enter"
+
+Le fichier "HomeFragment.kt" a été ajouté dans "fragments",
+Implementation de la classe
+
+Établir l'hériatge -> class HomeFragment : Fragment()
+
+Entre les {
+
+	oncreateview -> selectionner le override fun onCreateView()...
+}
+
+Supprimer ce qui suit le return,
+Remplacer par -> inflater?.inflate(R.layout.fragment_home, container, false)
+Souris sur le (R...,
+importer
+
+Ouvrir "MainActivity.kt",
+dans le override fun onCreate... {
+
+	// Injecter le fragement dans notre boite (fragment_container)
+}
+
+# Premier TEST mais avant, ...
+
+
+<!-- CHAPITRE : Configuration avec un téléphone Android physique -->
+
+Brancher le téléphone à l'ordinateur
+
+Paramètres,
+Système,
+À propos du téléphone,
+Appuyer plusieurs fois sur "Numéro de build",
+Activation du mode développeur,
+Saisie de code si nécessaire,
+Back,
+Options pour développeurs,
+Débogage USB,
+Autoriser le transfert des fichiers,
+Autoriser l'ordinateur
+
+Le téléphone a été ajouté dans AndroidStudio
+
+Run le code(TEST)
+
+
+<!-- CHAPITRE : Configuration de l'émulateur -->
+
+Ouvrir le Device Manager
+
+Create Virtual Device
+
+Category -> Phone
+Name -> Pixel 4 XL
+Next
+
+Release Name -> Pie,
+Le télécharger,
+Next,
+Finish
+
+Actions -> Play
+
+Une fois le téléphone virtuel allumé,
+TEST
+
+
+<!-- CHAPITRE : Création d'une liste -->
+
+#Première liste
+
+Dans fragment_home,
+Commenter ou effacer {
+
+    // Ajout des images trending.png
+},
+Remplacer par {
+
+    <!-- Création du Recycler horizontal -->
+}
+
+# Son layout
+
+Click droit sur "res/layout",
+New,
+Layout Resource File,
+
+File Name -> item_horizontal_plant,
+Root element -> LinearLayout,
+OK
+
+Le fichier "item_horizontal_plant.xml" a été ajouté dans "layout",
+Ajouter {
+
+    <!-- Layout du recycler horizontal (image) -->
+}
+
+# Nouvelle classe adapter
+
+Click droit sur le dossier "be.meldev.naturecollection",
+New,
+Package
+
+New Package -> be.meldev.naturecollection.adapter
+Touche "Enter"
+
+Le dossier "adapter" a été ajouté dans le dossier "be.meldev.naturecollection"
+
+Click droit sur le dossier "adapter",
+New,
+Kotlin Class/File
+
+New Kotlin Class/File -> PlantAdapter
+Touche "Enter"
+
+Le fichier "PlantAdapter.kt" a été ajouté dans "adapter",
+Implementation de la classe {
+
+    // Boite pour ranger tous les composants à controller
+		// Image de la plante
+    // Définition de la classe
+}
+
+ViewHolder(view: View),
+souris sur le View,
+Importer
+
+(R.id.image_item),
+souris sur le R,
+Importer
+
+"class PlantAdapter" donne une erreur,
+souris dessus,
+Implement Members,
+Tout selectionner,
+OK,
+Génération de 3 fonctions de classe
+
+Ajouter {
+
+        // Permet d'injecter le composant
+	    // Permet de renvoyer un nombre d'items dynamiquement //... Int = 5
+}
+
+# Charger le recycler
+
+Dans "HomeFragment.kt",
+Ajouter {
+
+        // Récupérer le recyclerView horizontal
+}
+
+TEST
+
+item_horizontal_plant.xml,
+modif de layout.width,
+Remplacement de la balise LinearLayout par CardView,
+Ajout {
+
+	marginStart
+	CorderRadius
+	Elevation
+}
+
+# Deuxième liste
+
+fragment_home {
+
+    <!-- Création du titre du second Recycler -->
+}
+
+TEST
+
+# Son layout
+
+Click droit sur "res/layout",
+New,
+Layout Resource File,
+
+File Name -> item_vertical_plant,
+OK
+
+Le fichier "item_vertical_plant.xml" a été ajouté dans "layout",
+Ajouter {
+
+    <!-- CardView du layout du recycler vertical -->
+		<!-- Image du recycler vertical -->
+}
+
+/!\
+Pour corriger l'erreur d'une balise d'élément (erreur normale et récurente),
+Il faut contraindre l'élément au niveau du design,
+Relier les cotés de l'élément avec les éléments qui le contraingnent,
+Ajout auto des lignes de code dans l'xml
+/!\
+
+Après la CardView {
+
+    <!-- Création d'une ligne facilitant la contrainte d'éléments -->
+    <!-- Nom de la plante -->
+    <!-- Description de la plante -->
+    <!-- Icone de favori -->
+}
+
+Dans fragment_home.xml {
+
+    <!-- Création du Recycler vertical -->
+}
+
+Dans PlantAdapter.kt,
+Ajout des paramètres {
+	
+	class PlantAdapter (private val layoutId: Int)
+		override fun onCreateViewHolder(...) {
+			.inflate(layoutId,...)
+		}
+}
+
+Dans HomeFragment.kt {
+
+	Ajouts:
+	// Récupérer le recyclerView horizontal
+		PlantAdapter(R.layout.item_horizontal_plant)
+	// Récupérer le recyclerView vertical
+		PlantAdapter(R.layout.item_vertical_plant)
+}
+
+# Nouvelle classe
+
+Click droit sur le dossier "adapter",
+New,
+Kotlin Class/File
+
+New Kotlin Class/File -> PlantItemDecoration
+Touche "Enter"
+
+Le fichier "PlantItemDecoration.kt" a été ajouté dans "adapter",
+
+Héritage,
+class PlantItemDecoration : RecyclerView.ItemDecoration() {
+
+    // Permet de rajouter un offset pour opérer une séparation autour de l'élement
+}
+
+Dans HomeFragment {
+
+	Ajout:
+    // Récupérer le recyclerView vertical
+		verticalRecyclerView?.addItemDecoration(PlantItemDecoration())
+}
+
+/!\
+Dans le code, des "?" seront à rajouter pour corriger certaines erreurs,
+Car les valeurs des variables peuvent potentiellement être "nulls"
+/!\
+
+
+<!-- CHAPITRE : Plante personnalisée -->
+
+# Nouvelle classe
+
+Click droit sur le dossier "be.meldev.naturecollection",
+New,
+Kotlin Class/File
+
+New Kotlin Class/File -> PlantModel
+Touche "Enter"
+
+Le fichier "PlantModel.kt" a été ajouté dans le dossier,
+Supprimer les {} et utiliser les (
+
+	// Permet de donner et de lister toutes les caractéristique d'une plante
+)
+
+Dans HomeFragment,
+Sous val view =... {
+
+    // Créer une liste qui va contenir nos plantes
+    // Enregistrer une première plante dans notre liste
+    // Enregistrer une première plante dans notre liste
+	
+	Ajouts:
+        // Récupérer le recyclerView horizontal
+			PlantAdapter(plantList,R...)
+        // Récupérer le recyclerView vertical
+			PlantAdapter(plantList,R...)
+}
+
+Pour corriger l'erreur que produit l'ajout,
+Il faut passer le paramètre dans PlantAdapter (
+
+	private val plantList: List<PlantModel>,
+)
+Modifier {
+
+    // Permet de renvoyer un nombre d'items dynamiquement
+}
+Ajouter {
+
+	override fun onBindViewHolder {
+	    
+		// Récupérer les infos de la plante
+	}
+}
+
+# Importation d'une nouvelle dépendance
+
+Importer la dépendance(bibliothèque) Glide,
+File,
+Project Structure
+
+Dependencies,
+All Dependencies -> Click "plus",
+Selectionner -> 1. Llibrary Dependency
+
+Chercher -> glide,
+Touche "Enter",
+Selectionner -> ...glide,
+Versions -> "la plus récente",
+OK,
+Apply,
+OK,
+(Synchronisation du projet avec la nouvelle dépendance)
+
+/!\
+Pour vérifier l'ajout,
+Aller dans le fichier de gestion des modules et des versions,
+Dérouler le dossier "Gradle Scripts",
+Ouvrir "build.gradle(Module:app)",
+Dependencies {
+
+    implementation 'com.github.bumptech.glide:glide:4.14.2'
+}
+/!\
+
+# Suite
+
+Toujours dans PlantAdapter {
+
+	override fun onBindViewHolder {
+	
+	    // Utiliser glide pour récupérer l'image à partir de son lien -> composant
+	}
+}
+Pour corriger l'erreur que produit (context),
+Il faut passer le paramètre dans PlantAdapter (
+
+    val context: MainActivity,
+)
+Pour qu'il puisse communiquer d'une classe à l'autre
+
+Il faut donc également le passer,
+Dans HomeFragment {
+
+	Ajouts:
+        // Récupérer le recyclerView horizontal
+			PlantAdapter(context, plantList,R...)
+        // Récupérer le recyclerView vertical
+			PlantAdapter(context, plantList,R...)
+}
+Pour corriger l'erreur que produit l'ajout,
+Il faut passer le paramètre dans HomeFragment (
+
+    private val context: MainActivity
+)
+
+Il faut donc également le passer,
+Grace à un "this",
+Dans MainActivity {
+
+    // transaction.replace(R.id.fragment_container, HomeFragment(this))
+}
+
+TEST
+
+Mais ça ne fonctionne pas car l'appli n'a pas encore la permission d'accéder à internet!
+
+Double-Click sur le dossier "manifests",
+Ouverture du fichier AndroidManifest.xml {
+
+    <!-- Ajout des permissions d'accès à internet et au réseau -->
+}
+
+TEST
+
+# Ajout des autres paramètres
+
+Dans PlantAdapter {
+
+    // Nom de la plante
+	// Description de la plante
+	Ajout:
+	override fun onBindViewHolder {
+        // Mettre à jour le nom de la plante
+        // Mettre à jour la description de la plante
+	}
+}
+
+TEST
+
+Erreur sur le "holder",
+Car PlantAdapter gère les items horizontal et vertical,
+plantName et plantDescritpion peuvent donc être "nulls"
+
+Pour corriger l'erreur,
+Modifier {
+
+    // Nom de la plante
+    // Description de la plante
+    override fun onBindViewHolder {
+	
+	    // Mettre à jour le nom de la plante
+        // Mettre à jour la description de la plante
+	}
+}
+
+TEST
+
+# Icone "Liked"
+
+Dans item_horizontal_plant {
+
+    <!-- Icone des images du recycler horizontal -->
+}
+
+Dans PlantAdapter {
+
+    // Icone de la plante
+	override fun onBindViewHolder {
+	
+	    // Vérifier si la plante a été likée ou non
+	}
+}
+
+TEST
+
+/!\
+Si on modifie le "Boolean" d'une plante enregistrée dans le HomeFragment,
+Cela modifie bien l'étoile dans l'appli
+/!\
+
+
+<!-- CHAPITRE : Base de données -->
+
+# Intégration de Firebase dans AndroidStudio
+
+Tools,
+Firebase
+
+Realtime Database,
+Get started with Realtime Database
+Suivre les différentes étapes...
+
+# 1ère étape
+
+Se connecter,
+Créer un projet,
+Nom du projet -> NatureCollection,
+Continuer,
+Click -> Créer un projet,
+Continuer,
+Click -> Associer
+
+# 2ème étape
+
+Add...,
+click -> Accept Changes
+(Resynchronisation du projet)
+
+Aller sur le site officiel de la D_B,
+Click -> Accéder à la console,
+Click sur notre projet,
+Dans le side menu,
+Onglet "Créer",
+Realtime Database,
+Click -> Créer une base de données,
+Laisser l'emplacement par défaut,
+Suivant,
+Laisser le mode par défaut,
+Activer
+
+Dans "Données" (onglet du haut actuel),
+
+# Ajout d'un enfant "plants"
+
+Click -> "plus" (Add child),
+Nom -> plants
+
+# Ajout d'une plante
+
+Click -> "plus",
+Nom -> plant1,
+Click -> "plus" 4 fois (une fois pour chaque éléments du PlantModel),
+Nom -> name, description, imageUrl, liked
+Valeur -> Pissenlit, jaune soleil, "url", false
+Ajouter
+
+À répéter pour chaque plantes
+
+Dans "Règles",
+
+# Modification des règles
+
+.read -> true,
+.write -> true,
+Click -> Publier,
+Click -> Ignorer
+
+# Retour dans AndroidStudio
+
+Dans HomeFragment,
+Supprimer ou commenter toutes les listes en local {
+
+	// Enregistrer ...
+}
+
+# Nouvelles classe
+
+Click droit sur le dossier "be.meldev.naturecollection",
+New,
+Kotlin Class/File
+
+New Kotlin Class/File -> PlantRepository
+Touche "Enter"
+
+Le fichier "PlantRepository.kt" a été ajouté dans le dossier,
+Ajouter {
+
+	// Singleton ... {
+		// Se connecter à la référence "plants"
+		// Créer une liste qui va contenir nos plantes
+	}
+	
+	// Mettre à jour les données {
+		// Absorber les données depuis la databaseRef -> liste de plantes
+	}
+}
+
+databaseRef.,
+Souris dessus,
+Importer
+
+object :,
+Souris dessus,
+Click -> Implement Members,
+Selectionner les éléments,
+OK
+
+Création de deux override fun,
+OnDataChange {
+
+	// Récolter la liste {
+		// Construire un objet plante
+		// Vérifier que la plante n'est pas null {
+			// Ajouter la plante à notre liste
+		}
+	}
+	// Retirer les anciennes
+}
+
+Dans MainActivity,
+onCreate {
+
+    // Charger notre PlantRepository
+    // Mettre à jour la liste de plantes
+}
+
+Dans HomeFragment,
+Supprimer ou commenter {
+
+    // Créer une liste qui va contenir nos plantes
+}
+
+plantList donne une erreur,
+Souris dessus,
+Importer
+
+TEST
+
+# Afficher et rafraichir
+
+Dans PlantRepository,
+updateData(
+
+	callback: () -> Unit
+)
+onDataChange {
+
+    // Actionner le callback
+}
+
+Dans MainActivity,
+// Mettre à jour la liste de plantes,
+Remplacer les () de repo.updateData avec des {},
+Y déplacer {
+
+	// Injecter le fragement dans notre boite (fragment_container)
+}
+
+/!\
+Les actions précédentes ont permis d'afficher et de rafraichir directement les éléments
+reçus de la D_B.
+Si on ajoute manuellement une plante dans la D_B,
+Elle s'ajoute instantanément dans l'appli,
+Sans devoir recompiler!
+/!\
+
+TEST
+
+# Étoile "favoris"
+
+Dans PlantAdapter,
+onBindViewHolder {
+
+    // Rajouter une interaction sur l'étoile {
+		// Inverse si le bouton est like ou pas
+	}
+}
+
+Dans PlantRepository,
+Ajout {
+
+    // Mettre à jour un objet plante en bdd
+}
+
+Dans la D_B,
+Ajouter un enfant pour chaque plante,
+Nom -> id
+Valeur -> "nom de l'élément" (ex: plant1)
+
+Dans PlantModel,
+Ajout (
+    val id: String = "plant0",
+)
+
+Dans PlantAdapter,
+onBindViewHolder {
+
+    // Récupérer le repository
+    // Rajouter une interaction sur l'étoile {
+		// Mettre à jour l'objet plante
+	}
+}
+
+TEST
+
+
+<!-- CHAPITRE : Détails d'une plante -->
+
+# Création d'une fenêtre pop-up
+
+Click droit sur le dossier "layout",
+New,
+Layout Resource File,
+
+File Name -> popup_plant_details,
+OK
+
+Le fichier "popup_plant_details.xml" a été ajouté dans "layout",
+Remplacer les match_parent du ConstraintLayout par,
+..._width="360dp"
+..._height="500dp"
+
+/!\
+Tout au long de la création de cette fenêtre pop-up,
+Les balises donneront des erreurs,
+car il faudra les contraindre au layout ou aux autres éléments
+/!\
+
+Entre les balises du ConstraintLayout principale,
+
+# Image d'en-tête
+
+Ajout,
+    <!-- Ajout de l'encadrement de l'image de la plante -->
+	<!-- Insertion de l'image dans l'encadrement -->
+
+# Texte d'en-tête
+
+Ajout,
+    <!-- Affichage du nom de la plante -->
+
+# Bouton d'en-tête
+
+Ajout,
+    <!-- Bouton de fermeture de la fenêtre popup -->
+
+# Marge interne du layout
+
+dans le ConstraintLayout,
+Ajout d'un padding
+
+# Détails
+
+Ajout,
+    <!-- Ajout du titre description -->
+    <!-- Affichage de la description -->
+    <!-- Ajout du titre croissance -->
+    <!-- Affichage de la croissance -->
+    <!-- Ajout du titre consommation -->
+    <!-- Affichage de la consommation -->
+
+# Boutons supprimer/favoris
+
+Ajout,
+    <!-- Ajout d'une ligne invisible pour faciliter la contrainte des éléments -->
+    <!-- Bouton de suppression de la plante -->
+    <!-- Bouton de favoris de la plante -->
+	
+# Injection de la pop-up dans le fragement
+
+Click droit sur le dossier "be.meldev.naturecollection",
+New,
+Kotlin Class/File
+
+New Kotlin Class/File -> PlantPopup
+Touche "Enter"
+
+Le fichier "PlantPopup.kt" a été ajouté dans le dossier,
+typer la classe,
+PlantPopup -> : Dialog,
+Souris dessus,
+Importer Dialog (android.app),
+
+Paramètres de la classe,
+PlantPopup(
+
+    private val adapter: PlantAdapter
+)
+
+Placer le contexte,
+Dialog(
+
+	adapter.context
+)
+Souris sur context,
+Click -> Make 'context' public
+
+Dans PlantPopup {
+
+    // Injection du layout de la popup
+}
+
+Dans PlantAdapter {
+
+	// Interaction lors du click sur une plante {
+		// Afficher la popup
+	}
+}
+
+TEST
+
+# Affichage des informations réelles
+
+Dans PlantAdapter {
+
+	// Interaction lors du click sur une plante {
+		// Afficher la popup
+		Ajout,
+		PlantPopup(..., 
+			currentPlant)
+	}
+}
+
+Dans PlantPopup,
+Paramètres de la classe,
+PlantPopup(
+
+    private val currentPlant: PlantModel
+)
+
+Dans onCreate {
+
+	// Initialiser les composants avec les bonnes valeurs
+}
+
+/!\
+Un des avantages de Kotlin,
+Est de pouvoir écrire le nom d'une fonction qui n'est pas encore créée,
+Pour ensuite,
+Souris dessus,
+Click -> create "nom de la fonction"...,
+Pour créer le bloque de la fonction juste en dessous
+/!\
+
+Dans setupComponents {
+
+	// Actualiser l'image de la plante
+		Souris sur imageView,
+		Importer
+	// Actualiser le nom de plante
+	// Acutaliser la description de la plante
+}
+
+Dans la D_B,
+Ajouter les deux nouveaux enfants pour chaque plante,
+Nom -> grow
+Valeur -> Lente (par défaut) (ou ce qu'on veut)
+Nom -> water
+Valeur -> Moyenne (par défaut) (ou ce qu'on veut)
+
+Dans PlantModel,
+Ajout (
+
+    val grow: String = "Lente",
+    val water: String = "Moyenne"
+)
+
+Dans setupComponents {
+
+	// Actualiser la croissance
+	// Actualiser la consommation
+}
+
+TEST
+
+# Le bouton fermeture
+
+Dans PlantPopup,
+onCreate {
+
+	// Initialiser le bouton de fermeture
+}
+Créer la fonction
+
+Dans setupCloseButton {
+
+	// Intégrer l'image et son action {
+		// Fermer la fenêtre
+	}
+}
+
+TEST
+
+# Le bouton suppression
+
+Dans PlantPopup,
+onCreate {
+
+	// Initialiser le bouton de suppression
+}
+Créer la fonction
+
+Dans setupDeleteButton {
+
+	// Intégrer l'image et son action {
+		// Supprimer de la bdd
+		// Fermeture de la popup après suppression
+	}
+}
+
+Dans PlantRepository {
+
+    // Supprimer une plante de la bdd
+}
+
+TEST
+
+# Le bouton favoris
+
+Dans PlantPopup,
+onCreate {
+
+	// Initialiser le bouton de favoris
+}
+Créer la fonction
+
+Dans setupStarButton {
+
+	// Récupérer l'image
+}
+
+# Création d'une fonction qui gère l'état de l'étoile des favoris
+
+Dans PlantPopup {
+
+    // Gestion de l'affichage de l'état actuel de l'étoile
+}
+
+Dans setupStarButton {
+
+	// Appel de la fonction de gestion d'état
+	// Interaction {
+		// Donner la valeure inversée
+		// Mise à jour des infos dans la bdd
+		// Appel de la fonction de gestion d'état
+	}
+}
+
+TEST
+
+
+<!-- CHAPITRE : Création de la page de collection -->
+
+# Son layout
+
+Click droit sur "layout",
+New,
+Layout Resource File,
+
+File Name -> fragment_collection,
+Root element -> LinearLayout,
+OK
+
+Le fichier "fragment_collection.xml" a été ajouté dans "layout",
+Ajouter {
+
+    <!-- Ajout d'un recycler vertical -->
+}
+
+# Sa classe
+
+Click droit sur le dossier "fragments",
+New,
+Kotlin Class/File
+
+New Kotlin Class/File -> CollectionFragment
+Touche "Enter"
+
+Le fichier "CollectionFragment.kt" a été ajouté dans le dossier,
+Placer le context en paramètre,
+CollectionFragment (
+
+    private val context: MainActivity
+)
+
+Héritage,
+CollectionFragment(...) : Fragment () {
+
+	Écrire -> onCreateView,
+	Selectionner la première proposée,
+	Enter,
+	onCreateView {
+	
+		Supprimer le return ... mis par défaut et remplacer par,
+		// Intégration de l'élément
+        // Récupérer la recycler view
+        // Renvoie de la view pour qu'elle puisse être assignée
+	}
+}
+
+Pour charger la page dans l'émulateur,
+Dans MainActivity,
+Dans la partie // Mettre à jour la liste de plantes,
+Remplacer,
+// transaction.replace(R.id.fragment_container, HomeFragment(this))
+par,
+transaction.replace(R.id.fragment_container, CollectionFragment(this))
+
+TEST
+
+Dans CollectionFragment,
+onCreateView {
+
+	// Remettre les espacements entres les éléments
+}
+
+TEST
+
+# Afficher uniquement les plantes en favoris
+
+Dans CollectionFragment,
+onCreateView {
+
+	Sur la ligne,
+	collectionRecyclerView?.adapter = PlantAdapter(
+		context,
+		plantList,
+		R.layout.item_vertical_plant)
+	
+	Ajouter à plantList,
+	collectionRecyclerView?.adapter = PlantAdapter(
+	context,
+	plantList.filter { it.liked },
+	R.layout.item_vertical_plant)
+}
+
+TEST
+
+
+<!-- CHAPITRE : Création de la page d'ajout de plantes -->
+
+# Son layout
+
+Click droit sur "layout",
+New,
+Layout Resource File,
+
+File Name -> fragment_add_plant,
+Root element -> LinearLayout,
+OK
+
+Le fichier "fragment_add_plant.xml" a été ajouté dans "layout",
+Ajout {
+
+    <!-- Boite qui va contenir le bouton d'ajout et l'image de la plante -->
+        <!-- Bouton d'ajout d'une image -->
+        <!-- Image de la plante sélectionnée -->
+}
+
+/!\
+Sans oublier la marge interne du layout principale
+/!\
+
+Après le 2ème LinearLayout,
+Ajout {
+
+	<!-- Insertion du formulaire d'input du nom de la plante -->
+	<!-- Insertion du formulaire d'input de la description de la plante -->
+    <!-- Insertion du formulaire déroulant de la croissance de la plante -->
+    <!-- Insertion du formulaire déroulant de la consommation de la plante -->
+    <!-- Bouton de confirmation d'ajout -->
+}
+
+/!\
+Les styles de textes des balises "Spinner" ne se gère pas comme pour les balises de textes.
+On pourra les modifier dans le sous-dossier "res/values",
+Double-Click sur le dossier "thèmes(2)",
+Et dans la première balise de style {
+
+	<!-- Gestion du style des Spinner -->
+}
+/!\
+
+# Sa classe
+
+Click droit sur le dossier "fragments",
+New,
+Kotlin Class/File
+
+New Kotlin Class/File -> AddPlantFragment
+Touche "Enter"
+
+Le fichier "AddPlantFragment.kt" a été ajouté dans le dossier,
+Placer le context en paramètre,
+AddPlantFragment (
+
+    private val context: MainActivity
+)
+
+Héritage,
+AddPlantFragment(...) : Fragment () {
+
+	Écrire -> onCreateView,
+	Selectionner la première proposée,
+	Enter,
+	onCreateView {
+	
+		Supprimer le return ... mis par défaut et remplacer par,
+        // Intégration de l'élément
+        // Renvoie de la view pour qu'elle puisse être assignée
+	}
+}
+
+Pour charger la page dans l'émulateur,
+Dans MainActivity,
+Dans la partie // Mettre à jour la liste de plantes,
+Remplacer,
+// transaction.replace(R.id.fragment_container, CollectionFragment(this))
+par,
+transaction.replace(R.id.fragment_container, AddPlantFragment(this))
+
+TEST
+
+# Interactions
+
+Dans AddPlantFragment,
+oncreateview {
+
+	// Récupérer le bouton pour charger une image
+	// Lorqu'on click dessus, ouvre les images du téléphone
+}
+
+Souris sur "pickupImage()",
+Create...,
+pickupImage {
+
+	// Intent() permet d'ouvrir des choses dans le téléphone
+}
+Souris sur "Intent()",
+Importer
+
+/!\
+Certaines fonctions sont décpréciées dans java mais sont encore utilisables.
+/!\
+
+Après pickupImage() {...},
+AddPlantFragment {
+
+	// Fonction qui suit l'évènement "startActivity..."
+	Écrire -> onActivityResult,
+	Selectionner la première proposée,
+	Enter,
+	onActivityResult {
+
+		// Vérifier les données reçues {
+		
+			// Vérifier si les données sont nulles
+			// Récupérer l'image
+			// Mettre à jour l'aperçu de l'image
+				/!\
+				Ne pas oublier le "?" car sans, cela causera une erreur
+				/!\
+		}
+	}
+}
+
+Dans le haut, à l'intérieur de la classe {
+
+    // Attributs accessibles par toutes les fonctions de la classe (uploadedImage)
+	oncreateview {
+	
+		// Récupérer uploadedImage pour lui associer son composant
+	}
+}
+
+Pour TEST,
+Via le téléphone physique ou l'émulateur,
+télécharger une IMG
+
+TEST
+
+# Sauvegarde de l'image dans la D_B
+
+Tools,
+Firebase,
+Cloud Storage for Firebase,
+Get started...,
+Suivre les étapes
+
+# 1ère étape
+
+Noramelement déjà connectée
+
+# 2ème étape
+
+Add Dependencies...
+
+Sur le site de la D_B,
+Click sur notre projet,
+Dans le side menu,
+Onglet "Créer",
+Storage,
+Click -> Commencer,
+Suivant,
+OK,
+Le bucket qui contiendra nos data a été créé
+
+# Connexion au storage
+
+Dans PlantRepository,
+Singleton {
+
+	// Se connecter à notre espace de stockage
+		Souris sur BUCKET_URL,
+		Create,
+	// Donner le lien pour accéder au bucket
+}
+
+/!\
+Le lien URL du bucket se trouve en en-tête du cadre de storage
+/!\
+
+# Création de la méthode d'upload des images
+(Cette partie là est très complexe)
+
+Plus bas,
+Ajout {
+
+    // Créer une méthode pour envoyer des fichiers sur le storage
+	(file: Uri) {
+	
+		// Vérifier que ce fichier n'est pas null {
+			// Créer le nom du fichier
+				/!\
+				UUID... permet de générer un nom au hasard
+				/!\
+			// Endroit de la bdd ou le ranger
+			// Associer le contenu à soumettre
+			
+			// Démarrer la tâche d'envoi (
+				Souris sur Task<...>,
+				Importer {
+				
+					task -> (car "it" par défaut)
+					// S'il y a eu un problème lors de l'envoi du fichier
+			})
+			// Récupérer le lien de l'image qui est maintenant hébergé {
+			
+				// Vérifier si tout a bien fonctionné{
+				
+					// Récupérer l'image
+				}
+			}
+		}
+	}
+}
+
+/!\
+Lors de la tâche d'envoi dans le code du tuto,
+uploadTask.continueWithTask(Continuation<UploadTask....),
+"Continuation" est déprécié et inutilisable!
+La correction est celle-ci,
+uploadTask.continueWithTask(com.google.android.gms.tasks.Continuation<UploadTask...)
+/!\
+
+Dans AddPlantFragment,
+onActivityResult {
+
+	// Heberger dans le bucket
+}
+
+TEST
+
+/!\
+Rien ne se passe car il y a des permissions à modifier dans la D_B
+/!\
+
+Sur le site de la D_B,
+Onglet "Rules",
+Supprimer ce qui se trouve après "allow read, write ...",
+Publier,
+Retour dans "Files"
+
+TEST
+
+/!\
+Rafraichir la page du site de la D_B pour voir l'import de l'image
+/!\
+
+# Récolte des données des formulaires
+
+Dans AddPlantFragment,
+oncreateview {
+
+	// Récupérer le bouton confirmer
+}
+Souris sur sendForm,
+Create...
+
+// Méthode d'envoi des formulaires
+sendForm(view: View) {
+
+	// Récupération des informations
+}
+
+# Modification
+
+Couper/(coller),
+// Heberger dans le bucket
+
+sendForm {
+	
+	(Couper)/coller,
+	// Heberger dans le bucket
+		Modif,
+		(selectedImage!!) par,
+		(file!!)
+}
+
+/!\
+Les "!!" servent à forcer une action qui pourrait dégager une erreur,
+car possibilité de résultat null.
+Cependant,
+Nous avons déjà géré ce cas d'erreur au préalable,
+Nous forcons donc sur l'erreur dégagée par AndroidStudio
+/!\
+
+onActivityResult {
+
+	Modif,
+	// Récupérer l'image
+	// Mettre à jour l'aperçu de l'image
+}
+
+Dans le haut, à l'intérieur de la classe {
+
+    // Attributs accessibles par toutes les fonctions de la classe (file)
+}
+
+# Retour de l'image
+
+Dans PlantRepository {
+	uploadImage (..., Callback: () -> Unit) {
+
+		// Récupérer le lien de l'image qui est maintenant hébergé {
+		
+			// Récupérer l'image dans sendForm de AddPlantFragment
+		}
+	}
+	
+	Singleton {
+	
+		// Contenir le lien de l'image courante
+	}
+	
+	uploadImage {
+	
+		// Récupérer le lien de l'image qui est maintenant hébergé {
+		
+			Modif,
+			// Récupérer l'image
+		}
+	}
+}
+
+# Envoi des infos en simultané
+
+Dans AddPlantFragment,
+sendForm {
+	
+	// Heberger dans le bucket {
+		
+		Déplacer ici,
+		// Récupération des informations
+		// Récupérer le lien de l'image
+			Souris sur downloadUri,
+			Importer
+		// Créer un nouvel objet PlantModel
+	}
+}
+
+Dans PlantRepository,
+Tout en dessous {
+
+	// Insérer une nouvelle plante en bdd
+}
+
+Dans AddPlantFragment,
+sendForm {
+
+	// Envoyer en bdd
+}
+
+TEST
+
+/!\
+Vérifier sur le site de la D_B,
+Dans les parties,
+Realtime Database et Storage,
+Que tout a bien fonctionné
+/!\
+
+/!\
+Vérifier également sur l'appli,
+En modifiant l'appel du fragment par "HomeFragment",
+Dans MainActivity
+/!\
+
+TEST
+
+# Détails sur la page HomeFragment
+
+Dans HomeFragment,
+Pour le recycler horizontal,
+Nous n'allons afficher que les plantes qui n'ont pas encore été mises en favoris
+
+Pour ce faire,
+Nous préciserons plantList comme suit,
+plantList.filter { !it.liked }
+
+TEST
+
+
+<!-- CHAPITRE : Barre de navigation -->
+
+# Création du composant
+
+Dans activity_main.xml,
+En dessous {
+
+    <!-- Création du menu de navigation -->
+}
+
+# Création des items sur lesquels cliquer
+
+Click droit sur "res",
+New,
+Android Resource Directory
+
+Resource Type -> menu,
+OK
+
+Le dossier "menu" a été ajouté dans le dossier "res"
+
+Click droit sur "menu",
+New,
+New Resource File
+
+File name -> bottom_navigation_menu,
+OK
+
+# Ajout de ressources
+
+Dans strings.xml,
+Au dessus {
+
+    // Texte barre de navigation
+}
+
+# Retour aux items
+
+Dans bottom_navigation_menu {
+
+    <!-- Création des items de navigation -->
+}
+
+Dans activity_main {
+
+	app:menu="@menu/bottom_navigation_menu"
+}
+
+# Style de la barre
+
+Dans le dossier "values",
+Double-Click sur le dossier "themes(2)",
+En dessous {
+
+    // Créer un style pour la bottom navigation view
+    // Personnaliser la barre de navigation
+}
+
+# Paramètrages de couleurs des items sélectionné/non-sélectionné
+
+Click droit sur le dossier "drawable",
+New,
+Drawable Resource File
+
+File name -> bottom_nav_color,
+OK
+
+Dans bottom_nav_color {
+
+    <!-- Couleurs des items de navigation sélectionner ou non -->
+}
+
+Dans activity_main {
+
+	app:itemTextColor="@drawable/bottom_nav_color"
+	app:itemIconTint="@drawable/bottom_nav_color"
+}
+
+TEST
+
+/!\
+À cette étape,
+J'ai testé chaque page en modifiant le chargement du fragment dans MainActivity.kt,
+Concernant le HomeFragment,
+Il a fallu redimensionner le FrameLayout du container qui affiche le contenu,
+Car les éléments du bas de liste étaient cachés par le bottom_navigation_menu,
+Pour régler ça,
+Il suffit de modifier les paramètres dans activity_main.xml,
+Sous {
+
+    <!-- Création du container qui affichera le contenu -->
+}
+/!\
+
+# OnClick, changement du fragment
+
+Dans MainActivity,
+Couper/(coller) {
+
+	// Charger notre PlantRepository
+	// Mettre à jour la liste de plantes
+}
+
+Écrire à la place {
+
+	// Méthode de chargement du fragment principal
+}
+
+Souris sur loadFragment,
+Create...
+
+Modification des paramètres,
+loadFragment(fragment: Fragment),
+(Couper)/coller {
+
+	// Charger notre PlantRepository
+	// Mettre à jour la liste de plantes
+}
+
+Dans la partie // Mettre à jour la liste de plantes,
+Remplacer,
+// transaction.replace(R.id.fragment_container, AddPlantFragment(this))
+par,
+transaction.replace(R.id.fragment_container, fragment)
+
+Dans onCreate {
+
+	// Importer la bottomNavigationView
+}
+
+/!\
+le "when" donne une erreur car il veut un cas par défaut,
+Souris dessus,
+Add else...,
+// Cas par défaut
+/!\
+
+TEST
+
+# OnClick, changement du titre
+
+Dans MainActivity,
+Ajout d'un paramètre,
+loadFragment(..., string: Int) {
+
+	// Actualiser le titre de la page
+}
+
+Ajour du paramètre à chaque appels de la méthode,
+onCreate {
+
+	// Méthode de chargement du fragment principal
+	Et
+	// Importer la bottomNavigationView
+	
+		loadFragment(..., R.string."nom de la page"_title)
+}
+
+TEST
+
+
+<!-- CHAPITRE : Ajout de l'icone de l'application -->
+
+# Téléchargement de l'icone
+
+ICO
+
+# Ajout de l'icone
+
+Drag and drop dans "drawable"
+
+Dans le dossier "manifests",
+Ouvrir AndroidManifest {
+
+    <!-- Endroit de changement d'icone -->
+	Modif,
+		android:icon="@drawable/croissance"
+	Ajout,
+		android:roundIcon="@drawable/croissance"
+}
+
+
+<!-- EOF : End of File -->
+
+L'application est maintenant terminée!
+
+		  !!! CONGRATS !!!
+
+Le code peut évidement être amélioré.
+
+Des ajouts peuvent être fait également,
+Comme par exemple,
+Lors de l'import d'une nouvelle plante,
+Créer un popup qui prévient le user que la plante est bien ajoutée,
+Et opérer un retour auto à la page d'accueil
+...
+
+En espérant que tout vous aura plus!
+Bonne continuation, Et...
+
+		 !!! Keep Coding !!!
+
+
+/>

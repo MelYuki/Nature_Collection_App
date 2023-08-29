@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+<!--
+    // Ajout des images trending.png
+    <ImageView
+        android:layout_width="150dp"
+        android:layout_height="200dp"
+        android:src="@drawable/trending1"
+        />
+
+    <ImageView
+        android:layout_width="150dp"
+        android:layout_height="200dp"
+        android:src="@drawable/trending2"
+        />
+
+    <ImageView
+        android:layout_width="150dp"
+        android:layout_height="200dp"
+        android:src="@drawable/trending3"
+        />
+
+    // On va remplacer les ImageView ci-dessus par une liste pour que cela se modifie automatiquement via le code
+-->
+
+    <!-- Création du Recycler horizontal -->
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/horizontal_recycler_view"
+        android:layout_width="match_parent"
+        android:layout_height="250dp"
+        android:orientation="horizontal"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        />
+
+    <!-- Création du titre du second Recycler -->
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/home_page_last_plant_section"
+        android:layout_marginStart="@dimen/default_margin"
+        android:layout_marginTop="@dimen/default_margin"
+        style="@style/SubtitleTextStyle"
+        />
+
+    <!-- Création du Recycler vertical -->
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/vertical_recycler_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="@dimen/default_margin"
+        android:layout_marginStart="@dimen/default_margin"
+        android:orientation="vertical"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        />
+
+</LinearLayout>
